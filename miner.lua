@@ -1,7 +1,7 @@
 --all code is released as public domain without a license
 --Michael Johnston 10 jan 2015
 MINELENGTH = 40
-
+fuelNeeded = true
 function init()
 	if turtle.getItemCount(1) == 0 then
 		print "Put torches in slot 1"
@@ -15,7 +15,7 @@ function init()
 		print "Put coal in slot 16"
 		shell.exit()
 	end
-	
+end	
 
 function performMine()
 	refuelIfNeeded()
@@ -64,7 +64,10 @@ function performStrip()
 end
 
 function refuelIfNeeded()
-	if turtle.getFuelLimit < 10 then
+	if not fuelNeeded then
+		return
+	end
+	if turtle.getFuelLimit() < 10 then
 		turtle.select (16)
 		if turtle.getItemCount(16) < 16 then
 			print "put more fuel in"
